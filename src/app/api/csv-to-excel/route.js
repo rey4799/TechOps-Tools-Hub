@@ -1,47 +1,32 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { Readable } from 'stream';
+import * as XLSX from 'xlsx';
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-    const formData = await request.formData();
+    const formData = await req.formData();
     const file = formData.get('file');
-    
+
     if (!file) {
-      return NextResponse.json({ message: 'File is required' }, { status: 400 });
+      return new Response('No file provided', { status: 400 });
     }
 
-    // Mengambil data file CSV dalam bentuk Buffer
-    const buffer = await file.arrayBuffer();
-    const csvData = buffer.toString('utf-8'); // Mengonversi ArrayBuffer ke string
+    // Membaca CSV dan mengonversinya ke Excel menggunakan SheetJS
+    const csvData = await file.text();
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(csvData.split('\n').map(row => row.split('|')));
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
-    // Memecah CSV berdasarkan baris dan delimiter "|"
-    const rows = csvData.split('\n');
-    const records = rows.map(row => row.split('|'));
+    // Menyimpan file Excel dalam bentuk buffer
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
 
-    // Menggunakan SheetJS untuk mengonversi data CSV ke Excel
-    const XLSX = require('xlsx');
-    const ws = XLSX.utils.aoa_to_sheet(records);  // Membuat worksheet dari data CSV
-    const wb = XLSX.utils.book_new();  // Membuat workbook baru
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');  // Menambahkan worksheet ke workbook
-
-    // Membuat buffer untuk file Excel
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'buffer' });
-
-    // Mengirim file Excel langsung sebagai response download
-    const response = new NextResponse(excelBuffer, {
-      status: 200,
+    // Mengirimkan file Excel sebagai response
+    return new Response(excelBuffer, {
       headers: {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        'Content-Disposition': `attachment; filename=${file.name.replace('.csv', '.xlsx')}`,
+        'Content-Disposition': `attachment; filename="${file.name.replace('.csv', '.xlsx')}"`,
       },
     });
-
-    return response;
-    
   } catch (error) {
     console.error('Error processing file:', error);
-    return NextResponse.json({ message: 'An error occurred' }, { status: 500 });
+    return new Response(JSON.stringify({ message: 'Error processing file' }), { status: 500 });
   }
 }
