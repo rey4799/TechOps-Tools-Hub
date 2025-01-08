@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Swal from 'sweetalert2'; // Impor SweetAlert2
 
 export default function CsvToExcelForm() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -37,13 +38,36 @@ export default function CsvToExcelForm() {
         document.body.appendChild(link);
         link.click();
         link.remove();
-        alert('Wow file terconverted ke Excel');
+        
+        // Menampilkan SweetAlert2 ketika konversi berhasil
+        Swal.fire({
+          icon: 'success',
+          title: 'Wow!',
+          text: 'File berhasil dikonversi ke Excel.',
+          confirmButtonText: 'OK',
+        });
       } else {
         const result = await response.json();
         setError(result.message);
+        
+        // Menampilkan SweetAlert2 ketika terjadi error
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: result.message || 'An error occurred while converting the file.',
+          confirmButtonText: 'Try Again',
+        });
       }
     } catch (error) {
-      setError('An error occurred while uploading the file, coba di tracing');
+      setError('An error occurred while uploading the file');
+      
+      // Menampilkan SweetAlert2 ketika terjadi error
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'An error occurred. Please try again later.',
+        confirmButtonText: 'OK',
+      });
     } finally {
       setIsUploading(false);
     }
