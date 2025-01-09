@@ -25,6 +25,11 @@ export const metadata = {
               Multiple Query Generator
             </a>
           </li>
+          <li>
+            <a href="/utilities/base64-to-image" className="text-lg text-blue-600 hover:underline">
+              Base64 to Image Preview
+            </a>
+          </li>
         </ul>
       </div>
     );
