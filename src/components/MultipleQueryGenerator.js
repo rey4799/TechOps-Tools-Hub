@@ -16,7 +16,7 @@ export default function MultipleQueryGenerator() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'No data entered!',
+        text: 'Kocak dong, data nya mana?',
         confirmButtonText: 'OK',
       });
       return;

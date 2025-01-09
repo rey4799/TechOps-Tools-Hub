@@ -25,7 +25,7 @@ export default function Base64ToImagePreview() {
           alt="Base64 Icon"
         />
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Base64 to Image Converter</h1>
-        
+        <p className="text-gray-600 mb-6">kita ubah string tidak jelas ini menjadi gambar</p>
         <textarea
           value={base64String}
           onChange={handleInputChange}
