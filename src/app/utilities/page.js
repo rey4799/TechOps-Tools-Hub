@@ -29,6 +29,11 @@ export const metadata = {
             <a href="/utilities/base64-to-image" className="text-lg text-blue-600 hover:underline">
               Base64 to Image Preview
             </a>
+          </li> 
+          <li>
+            <a href="/utilities/json-viewer" className="text-lg text-blue-600 hover:underline">
+             Json Viewer
+            </a>
           </li>
         </ul>
       </div>
