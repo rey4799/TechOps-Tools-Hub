@@ -16,7 +16,7 @@ export default function Daily() {
           <Link href="/daily/gtm-report">GTM Report</Link>
         </li>
         <li>
-          <Link href="/daily/no-pin">No Pin</Link>
+          <Link href="/daily/no-pinless">No Pinless</Link>
         </li>
         <li>
           <Link href="/daily/tnc">TNC</Link>
