@@ -40,6 +40,12 @@ export default function UtilitiesPage() {
             JSON Viewer
           </a>
         </li>
+        <li className="transition-transform transform hover:scale-105 flex items-center space-x-3">
+          <i className="fas fa-cogs text-2xl text-teal-600" />
+          <a href="https://wheelofnames.com/" target="_blank" className="block p-4 bg-teal-100 rounded-lg shadow-md text-lg text-teal-700 hover:bg-teal-200">
+            Roulette
+          </a>
+        </li>
       </ul>
     </div>
   );
