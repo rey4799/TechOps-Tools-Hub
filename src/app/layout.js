@@ -24,13 +24,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* Navbar that will appear on every page */}
         <NavBar />
 
         {/* Main content */}
-        <main className="pt-10">  {/* Added padding to push content below navbar */}
+        <main>  {/* Added padding to push content below navbar */}
           {children}
         </main>
       </body>
