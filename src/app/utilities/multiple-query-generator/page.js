@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-start mt-4">
+    <div className="h-full flex justify-center items-start mt-4">
       <MultipleQueryGenerator />
     </div>
   );

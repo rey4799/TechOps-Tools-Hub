@@ -4,9 +4,11 @@ import React, { useState } from "react";
 export default function MergeFile() {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
+  const [timestampCheck, setTimestampCheck] = useState(false); // Menyimpan status pengecekan timestamp
 
   const handleFileChange = (event) => {
     setFiles(event.target.files);
+    setTimestampCheck(false); // Reset saat file baru dipilih
   };
 
   const handleDownload = async () => {
@@ -38,6 +40,9 @@ export default function MergeFile() {
       link.href = URL.createObjectURL(blob);
       link.download = "merged_data.csv"; // Nama file yang diunduh
       link.click();
+
+      // Set status pengecekan timestamp setelah berhasil mendownload
+      setTimestampCheck(true);
     } catch (error) {
       alert("Error occurred while merging files.");
       console.error(error);
@@ -67,6 +72,14 @@ export default function MergeFile() {
       >
         {loading ? "Merging..." : "Download Merged CSV"}
       </button>
+
+      {/* Menambahkan pesan jika pengecekan timestamp belum dilakukan */}
+      {!timestampCheck && (
+        <p className="mt-4 text-gray-600">
+          Pengecekan dan pengurutan berdasarkan kolom "timestamp" belum dilakukan. 
+          Harap pastikan file CSV yang diunggah memiliki kolom timestamp yang valid.
+        </p>
+      )}
     </div>
   );
 }
