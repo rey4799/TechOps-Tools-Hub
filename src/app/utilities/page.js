@@ -16,8 +16,8 @@ export const metadata = {
             </a>
           </li>
           <li>
-            <a href="/utilities/merge-filter" className="text-lg text-blue-600 hover:underline">
-              Merge and Filtering Data
+            <a href="/utilities/merge-file" className="text-lg text-blue-600 hover:underline">
+              Merge File
             </a>
           </li>
           <li>
