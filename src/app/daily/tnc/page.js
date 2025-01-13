@@ -7,6 +7,7 @@ export default function TncPage() {
   const [tncProvisioningQuery, setTncProvisioningQuery] = useState('');
   const [tncConsentQuery, setTncConsentQuery] = useState('');
   const [currentDate, setCurrentDate] = useState('');
+  const [yesterdayDate, setYesterdayDate] = useState(''); // State for yesterday's date
 
   useEffect(() => {
     const { tncProvisioningQuery, tncConsentQuery } = generateTncQuery();
@@ -19,6 +20,14 @@ export default function TncPage() {
     const month = today.toLocaleString('default', { month: 'short' });
     const year = today.getFullYear();
     setCurrentDate(`${day}_${month}_${year}`);
+
+    // Set yesterday's date
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const yesterdayDay = String(yesterday.getDate()).padStart(2, '0');
+    const yesterdayMonth = yesterday.toLocaleString('default', { month: 'short' });
+    const yesterdayYear = yesterday.getFullYear();
+    setYesterdayDate(`${yesterdayDay}_${yesterdayMonth}_${yesterdayYear}`);
   }, []);
 
   // Function to copy text to clipboard
@@ -53,7 +62,7 @@ export default function TncPage() {
       <div className="bg-gray-100 p-4 rounded-lg mb-4">
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">
-            TNC Provisioning Query: tnc_provisioning_{currentDate}
+            TNC Provisioning Query: tnc_provisioning_{yesterdayDate}
           </h2>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -71,7 +80,7 @@ export default function TncPage() {
       <div className="bg-gray-100 p-4 rounded-lg">
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">
-            TNC Consent Query: tnc_consent_{currentDate}
+            TNC Consent Query: tnc_consent_{yesterdayDate}
           </h2>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded"
