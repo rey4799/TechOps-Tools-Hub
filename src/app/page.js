@@ -3,7 +3,7 @@ const HomeScreen = () => {
     <div>
       {/* Content Page */}
       <main className="flex-1 container mx-auto p-8">
-        <h1 className="text-4xl font-bold text-center text-gray-900 mb-6">Welcome to TechOps Tools Hub</h1>
+        <h1 className="text-4xl font-bold text-center text-gray-900 mb-6">Welcome to L2 Tools Hub</h1>
         <p className="text-center text-lg text-gray-600 mb-10">
           Your go-to platform for all daily operations, utilities tools, and more.
         </p>
