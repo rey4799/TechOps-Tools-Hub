@@ -70,7 +70,7 @@ export default function NoPinlessPage() {
       </div>
 
       {/* QRIS Pinless Query Section */}
-      <div className="bg-gray-100 p-4 rounded-lg">
+      <div className="bg-gray-100 p-4 rounded-lg mb-4">
         <div className="flex justify-between items-center">
           <h2 className="text-lg font-semibold">
             QRIS Pinless trx Query: {`tgl ${formattedDate}`}
@@ -85,6 +85,18 @@ export default function NoPinlessPage() {
         <pre className="bg-white p-4 rounded-lg overflow-auto text-sm">
           {qrisPinlessQuery}
         </pre>
+      </div>
+
+      {/* Dashboard link */}
+      <div className="mt-6">
+        <h2 className="text-lg font-semibold">Dashboard no pin transaction:</h2>
+        <a
+          href="https://elk-kibana01-dc2-mvrk.bni.co.id:5601/app/r/s/AwKCs"
+          target="_blank"
+          className="text-blue-500 underline"
+        >
+          https://elk-kibana01-dc2-mvrk.bni.co.id:5601/app/r/s/AwKCs
+        </a>
       </div>
     </div>
   );
