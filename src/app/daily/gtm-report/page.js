@@ -1,10 +1,12 @@
-// app/daily/gtm-report.js
-export default function GtmReport() {
-    return (
-      <div className="p-4">
-        <h1 className="text-2xl font-bold">GTM Report</h1>
-        <p>This is a dummy content for GTM Report.</p>
-      </div>
-    );
-  }
-  
+import UploadForm from "@/components/UploadForm";
+
+const GtmReportPage = () => {
+  return (
+    <div>
+      <h1>GTM Report</h1>
+      <UploadForm />
+    </div>
+  );
+};
+
+export default GtmReportPage;
