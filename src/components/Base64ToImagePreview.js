@@ -11,7 +11,9 @@ export default function Base64ToImagePreview() {
 
   const handlePreview = () => {
     if (base64String) {
-      setPreviewSrc(base64String);
+      // Tambahkan prefix yang tepat untuk Base64 image
+      const imagePrefix = "data:image/jpeg;base64,";
+      setPreviewSrc(imagePrefix + base64String);
     } else {
       alert('Please enter a valid Base64 string!');
     }
