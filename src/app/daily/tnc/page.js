@@ -93,6 +93,20 @@ export default function TncPage() {
           {tncConsentQuery}
         </pre>
       </div>
+      <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+    <h3 className="text-xl font-semibold text-gray-800 mb-4">Sharepoint TNC Report</h3>
+    <p>
+      For the Sharepoint TNC Report, you can access it through the following link:
+      <a
+        href="https://bankbnitbk.sharepoint.com/sites/MAVERICK/Shared%20Documents/Forms/AllItems.aspx?csf=1&web=1&e=9oOwOg&CID=dd3aaa58%2D7adb%2D4e90%2Da2c0%2D55a724693afe&FolderCTID=0x01200018B3204F20A001499104FB0B53612AF4&id=%2Fsites%2FMAVERICK%2FShared%20Documents%2FGeneral%2F01%20PMO%2F99%20Others%2FPROVISIONING%20REPORTING%20GTM%2Fterms%20consent"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500"
+      >
+        Sharepoint TNC Report
+      </a>
+    </p>
+  </div>
     </div>
   );
 }
