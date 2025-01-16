@@ -87,17 +87,31 @@ export default function NoPinlessPage() {
         </pre>
       </div>
 
-      {/* Dashboard link */}
-      <div className="mt-6">
+           {/* Dashboard link */}
+      <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
         <h2 className="text-lg font-semibold">Dashboard no pin transaction:</h2>
         <a
           href="https://elk-kibana01-dc2-mvrk.bni.co.id:5601/app/r/s/AwKCs"
           target="_blank"
-          className="text-blue-500 underline"
+          className="text-blue-500 underline hover:text-blue-700"
         >
           https://elk-kibana01-dc2-mvrk.bni.co.id:5601/app/r/s/AwKCs
         </a>
       </div>
+      <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+  <h3 className="text-xl font-semibold text-gray-800 mb-4">Sharepoint TRX NO PIN TRANSACTION</h3>
+  <p>
+    you can access it through the following link:
+    <a
+      href="https://bankbnitbk.sharepoint.com/sites/MAVERICK/Shared%20Documents/Forms/AllItems.aspx?csf=1&web=1&e=zM0c9G&CID=e17c73d9%2D8847%2D4dea%2Da952%2D7054c19608cc&FolderCTID=0x01200018B3204F20A001499104FB0B53612AF4&id=%2Fsites%2FMAVERICK%2FShared%20Documents%2FGeneral%2F01%20PMO%2F99%20Others%2FPROVISIONING%20REPORTING%20GTM%2FTRX%20NO%20PIN%20TRANSACTION"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-blue-500"
+    >
+      Sharepoint TRX NO PIN TRANSACTION
+    </a>
+  </p>
+</div>
     </div>
   );
 }
