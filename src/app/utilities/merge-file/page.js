@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
+import axios from "axios";  // Import Axios
 
 export default function MergeFile() {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
-  const [timestampCheck, setTimestampCheck] = useState(false); // Menyimpan status pengecekan timestamp
+  const [timestampCheck, setTimestampCheck] = useState(false);
 
   const handleFileChange = (event) => {
     setFiles(event.target.files);
-    setTimestampCheck(false); // Reset saat file baru dipilih
+    setTimestampCheck(false);
   };
 
   const handleDownload = async () => {
@@ -20,28 +21,20 @@ export default function MergeFile() {
     setLoading(true);
     try {
       const formData = new FormData();
-      // Menambahkan file yang dipilih ke formData
       Array.from(files).forEach((file) => {
-        formData.append("file", file);
+        formData.append("files", file);  // Ensure proper field name
       });
 
-      const response = await fetch("/api/merge-files", {
-        method: "POST",
-        body: formData,
+      const response = await axios.post("http://13.229.248.10/merge-csv", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        responseType: "blob",  // Set response type to blob for downloading files
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to merge CSV files");
-      }
-
-      // Membaca file CSV yang diunduh
-      const blob = await response.blob();
       const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "merged_data.csv"; // Nama file yang diunduh
+      link.href = URL.createObjectURL(response.data);
+      link.download = "merged_data.csv";  // Specify filename for download
       link.click();
 
-      // Set status pengecekan timestamp setelah berhasil mendownload
       setTimestampCheck(true);
     } catch (error) {
       alert("Error occurred while merging files.");
@@ -73,11 +66,9 @@ export default function MergeFile() {
         {loading ? "Merging..." : "Download Merged CSV"}
       </button>
 
-      {/* Menambahkan pesan jika pengecekan timestamp belum dilakukan */}
       {!timestampCheck && (
         <p className="mt-4 text-gray-600">
-          Pengecekan dan pengurutan berdasarkan kolom "timestamp" belum dilakukan. 
-          Harap pastikan file CSV yang diunggah memiliki kolom timestamp yang valid.
+          Pengecekan dan pengurutan berdasarkan kolom "timestamp" belum dilakukan. Harap pastikan file CSV yang diunggah memiliki kolom timestamp yang valid.
         </p>
       )}
     </div>

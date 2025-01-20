@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function CSVAnalysis() {
   const [csvFile, setCsvFile] = useState(null);
@@ -22,25 +23,25 @@ export default function CSVAnalysis() {
       alert('Please select both CSV and bank code files');
       return;
     }
-
+  
     // Prepare form data to send the files
     const formData = new FormData();
     formData.append('csvFile', csvFile);
     formData.append('bankCodeFile', bankCodeFile);
-
+  
+    // Log formData to check its contents
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+  
     try {
-      // Send POST request to the server with the files
-      const response = await fetch('/api/daily-recap', {
-        method: 'POST',
-        body: formData,
+      const response = await axios.post('http://13.229.248.10/process-bank-codes', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
-
-      // Check if the response is OK
-      if (!response.ok) {
-        throw new Error('Error generating the report');
-      }
-
-      // Convert the response to a blob (Excel file)
+  
+      // Process the response
       const blob = await response.blob();
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
