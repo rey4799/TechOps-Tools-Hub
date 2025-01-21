@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Swal from 'sweetalert2';
-import axios from 'axios';  // Import Axios
+import Swal from 'sweetalert2'; // Impor SweetAlert2
 
 export default function CsvToExcelForm() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -26,26 +25,43 @@ export default function CsvToExcelForm() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await axios.post("http://13.229.248.10/csv-to-excel", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-        responseType: "blob",  // Set response type to blob for downloading files
+      const response = await fetch('/api/csv-to-excel', {
+        method: 'POST',
+        body: formData,
       });
 
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(response.data);
-      link.download = selectedFile.name.replace('.csv', '.xlsx');
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Wow!',
-        text: 'File berhasil dikonversi ke Excel.',
-        confirmButtonText: 'OK',
-      });
+      if (response.ok) {
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = selectedFile.name.replace('.csv', '.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        
+        // Menampilkan SweetAlert2 ketika konversi berhasil
+        Swal.fire({
+          icon: 'success',
+          title: 'Wow!',
+          text: 'File berhasil dikonversi ke Excel.',
+          confirmButtonText: 'OK',
+        });
+      } else {
+        const result = await response.json();
+        setError(result.message);
+        
+        // Menampilkan SweetAlert2 ketika terjadi error
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: result.message || 'An error occurred while converting the file.',
+          confirmButtonText: 'Try Again',
+        });
+      }
     } catch (error) {
       setError('An error occurred while uploading the file');
+      
+      // Menampilkan SweetAlert2 ketika terjadi error
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -60,7 +76,7 @@ export default function CsvToExcelForm() {
   return (
     <div className="flex flex-col items-center bg-blue-50 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <img
-        src="https://upload.wikimedia.org/wikipedia/id/2/21/Daniel_Radcliffe_di_film_Harry_Potter_and_The_Order_of_Phoenix.jpg"
+        src="https://upload.wikimedia.org/wikipedia/id/2/21/Daniel_Radcliffe_di_film_Harry_Potter_and_The_Order_of_Phoenix.jpg" // Ganti dengan gambar logo atau ilustrasi
         alt="CSV to Excel"
         className="w-32 h-32 rounded-full mb-4"
       />
