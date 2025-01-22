@@ -23,7 +23,7 @@ export async function POST(req) {
     const parsedData = Papa.parse(csvData, {
       header: true,
       skipEmptyLines: true,
-      delimiter: ",",     // CSV delimiter
+      delimiter: "|",     // CSV delimiter
       quoteChar: '"',     // To handle quoted fields
       escapeChar: '"',    // To handle escape characters within fields
     });
